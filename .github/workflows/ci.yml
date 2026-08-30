@@ -1,0 +1,28 @@
+name: Ci pipeline
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+      - name: install python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install packages
+        run: |
+          cd app
+          pip install -r requirements.txt
+      - name: test the application
+        run: |
+          cd app
+          pytest
